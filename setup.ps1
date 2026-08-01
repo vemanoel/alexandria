@@ -17,16 +17,14 @@ function Refresh-Env {
 
 # Install Chocolatey
 if (Test-Path "C:\ProgramData\chocolatey") {
-    Remove-Item "C:\ProgramData\chocolatey" -Recurse -Force
+    Remove-Dir "C:\ProgramData\chocolatey" -Recurse -Force
 }
 
 Set-ExecutionPolicy Bypass -Scope Process -Force
 [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072
 iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
-Refresh-Env
 
-# Install Zed
-choco install zed-editor --yes --limit-output
+Refresh-Env
 
 # Install Just
 choco install just --version=1.57.0 --yes --limit-output
