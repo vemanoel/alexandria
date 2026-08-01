@@ -1,65 +1,51 @@
 $ErrorActionPreference = "Stop"
 
-function Refresh-Path {
+function Refresh-Env {
+    [Environment]::GetEnvironmentVariables("Machine").GetEnumerator() | ForEach-Object {
+        Set-Item -Path "Env:$($_.Key)" -Value $_.Value
+    }
+
+    [Environment]::GetEnvironmentVariables("User").GetEnumerator() | ForEach-Object {
+        Set-Item -Path "Env:$($_.Key)" -Value $_.Value
+    }
+
     $env:Path = @(
         [Environment]::GetEnvironmentVariable("Path", "Machine")
         [Environment]::GetEnvironmentVariable("Path", "User")
     ) -join ";"
 }
 
-# Install Scoop
-Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
-Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
-Refresh-Path
+# Install Chocolatey
+Remove-Item C:\ProgramData\chocolatey -Recurse -Force
+Set-ExecutionPolicy Bypass -Scope Process -Force
+[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072
+iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+Refresh-Env
 
 # Install Git
-scoop install git
-Refresh-Path
-
-# Add extras bucket for Scoop
-scoop bucket add extras
-
-# Install Go
-scoop install go
-Refresh-Path
-
-# Install Wails CLI
-go install github.com/wailsapp/wails/v3/cmd/wails3@latest
-Refresh-Path
-
-# Install Node.JS
-scoop install nodejs-lts
-
-# Install PNPM
-scoop install pnpm
+choco install git --version=2.55.0 --yes
+choco pin add -n=git
 
 # Install Just
-scoop install just
-Refresh-Path
+choco install just --version=1.57.0 --yes
+choco pin add -n=just
 
-# Install WebView2 Runtime
-scoop install extras/webview2
-Refresh-Path
+# Install Node
+choco install nodejs --version=26.0.0
+choco pin add -n=nodejs
 
-# Install Android SDK Platform-Tools
-scoop install adb
-Refresh-Path
+# Install PNPM
+choco install pnpm --version=11.18.0 --yes
+choco pin add -n=pnpm
 
-# Install Android command-line tools
-scoop install android-clt
-Refresh-Path
+# Install Rust
+choco install rust --version=1.97.0 --yes
+choco pin add -n=rust
+     
+# Install Android SDK Command-line Tool
+choco install android-sdk --yes
+Refresh-Env
+sdkmanager "platform-tools" "platforms;android-35" "ndk;25.1.8937393" "build-tools;35.0.0" "cmdline-tools;11.0"
 
-# Install Android SDK components
-sdkmanager "platform-tools" "platforms;android-35" "build-tools;35.0.0" "ndk;26.3.11579264" "emulator" "system-images;android-35;google_apis;arm64-v8a"
-
-# Create Android Virtual Device (AVD)
-avdmanager create avd --name wails --package "system-images;android-35;google_apis;arm64-v8a" --device pixel_7
-
-# Install JDK
-scoop bucket add java
-scoop install openjdk21
-Refresh-Path
-
-# Clone the repository
-git clone https://github.com/vemanoel/alexandria.git
-cd alexandria
+# Install Microsoft C++ Build Tools
+choco install visualstudio2022buildtools --package-parameters "--add Microsoft.VisualStudio.Workload.VCTools --includeRecommended --passive" --yes
