@@ -34,7 +34,7 @@ choco install git --version=2.55.0 --yes
 choco pin add -n=git
 
 # Install Node
-choco install nodejs --version=26.0.0
+choco install nodejs --version=26.0.0 --yes
 choco pin add -n=nodejs
 
 # Install PNPM
