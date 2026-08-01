@@ -1,4 +1,17 @@
-. "$PSScriptRoot\utils.ps1"
+function Refresh-Env {
+    [Environment]::GetEnvironmentVariables("Machine").GetEnumerator() | ForEach-Object {
+        Set-Item -Path "Env:$($_.Key)" -Value $_.Value
+    }
+
+    [Environment]::GetEnvironmentVariables("User").GetEnumerator() | ForEach-Object {
+        Set-Item -Path "Env:$($_.Key)" -Value $_.Value
+    }
+
+    $env:Path = @(
+        [Environment]::GetEnvironmentVariable("Path", "Machine")
+        [Environment]::GetEnvironmentVariable("Path", "User")
+    ) -join ";"
+}
 
 $ErrorActionPreference = "Stop"
 
