@@ -51,7 +51,7 @@ choco install pnpm --version=11.18.0 --yes --limit-output
 choco pin add -n=pnpm
 
 # Install Rust
-choco install rustup.install --version=1.97.0 --yes --limit-output
+choco install rustup --version=1.97.0 --yes --limit-output
 choco pin add -n=rust
      
 # Install Android SDK Command-line Tool
