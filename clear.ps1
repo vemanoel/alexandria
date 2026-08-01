@@ -8,7 +8,7 @@ function Choco-Uninstall {
         [string]$Params
     )
 
-    choco pin remove -n=$Package
+    choco pin remove -n="$Package"
 
     $args = @(
         "uninstall"
