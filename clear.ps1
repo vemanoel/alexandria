@@ -1,3 +1,14 @@
+function Remove-Dir {
+    param(
+        [Parameter(Mandatory=$true)]
+        [string]$Path
+    )
+
+    if (Test-Path $Path) {
+        Remove-Item $Path -Recurse -Force
+    }
+}
+
 choco pin remove -n=just
 choco uninstall just --yes --remove-dependencies --remove-immersive
 
@@ -20,8 +31,8 @@ choco pin remove -n=visualstudio2022buildtools
 choco uninstall visualstudio2022buildtools --yes --remove-dependencies --remove-immersive
 
 # Uninstall Chocolatey
-Remove-Item "C:\ProgramData\chocolatey" -Recurse -Force
-Remove-Item "C:\ProgramData\ChocolateyHttpCache" -Recurse -Force
+Remove-Dir "C:\ProgramData\chocolatey"
+Remove-Dir "C:\ProgramData\ChocolateyHttpCache"
 
 [Environment]::SetEnvironmentVariable(
     "Path",
@@ -31,6 +42,6 @@ Remove-Item "C:\ProgramData\ChocolateyHttpCache" -Recurse -Force
 )
 
 # Uninstall Android Studio
-Remove-Item "C:\Program Files\Java" -Recurse -Force
-Remove-Item "C:\Android" -Recurse -Force
-Remove-Item "$env:USERPROFILE\.android" -Recurse -Force
+Remove-Dir "C:\Program Files\Java"
+Remove-Dir "C:\Android"
+Remove-Dir "$env:USERPROFILE\.android"
