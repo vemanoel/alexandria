@@ -1,23 +1,23 @@
 choco pin remove -n=just
-choco uninstall just --yes --remove-dependencies
+choco uninstall just --yes --remove-dependencies --remove-immersive
 
 choco pin remove -n=git
 choco uninstall git --yes --remove-dependencies --remove-immersive --params="'/VERYSILENT /NORESTART'"
 
 choco pin remove -n=nodejs
-choco uninstall nodejs --yes --remove-dependencies
+choco uninstall nodejs --yes --remove-dependencies --remove-immersive
 
 choco pin remove -n=pnpm
-choco uninstall pnpm --yes --remove-dependencies
+choco uninstall pnpm --yes --remove-dependencies --remove-immersive
 
 choco pin remove -n=rust
-choco uninstall rust --yes --remove-dependencies
+choco uninstall rust --yes --remove-dependencies --remove-immersive
 
 choco pin remove -n=android-sdk
-choco uninstall android-sdk --yes --remove-dependencies
+choco uninstall android-sdk --yes --remove-dependencies --remove-immersive
 
 choco pin remove -n=visualstudio2022buildtools
-choco uninstall visualstudio2022buildtools --yes --remove-dependencies
+choco uninstall visualstudio2022buildtools --yes --remove-dependencies --remove-immersive
 
 # Uninstall Chocolatey
 Remove-Item "C:\ProgramData\chocolatey" -Recurse -Force
