@@ -1,10 +1,10 @@
-choco uninstall just --yes
-choco uninstall git --yes
-choco uninstall nodejs --yes
-choco uninstall pnpm --yes
-choco uninstall rust --yes
-choco uninstall android-sdk --yes
-choco uninstall visualstudio2022buildtools --yes
+choco uninstall just --yes --remove-dependencies
+choco uninstall git --yes --remove-dependencies
+choco uninstall nodejs --yes --remove-dependencies
+choco uninstall pnpm --yes --remove-dependencies
+choco uninstall rust --yes --remove-dependencies
+choco uninstall android-sdk --yes --remove-dependencies
+choco uninstall visualstudio2022buildtools --yes --remove-dependencies
 
 # Uninstall Chocolatey
 Remove-Item C:\ProgramData\chocolatey -Recurse -Force
