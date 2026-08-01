@@ -1,29 +1,12 @@
+. "$PSScriptRoot\utils.ps1"
+
 $ErrorActionPreference = "Stop"
 
-function Refresh-Env {
-    [Environment]::GetEnvironmentVariables("Machine").GetEnumerator() | ForEach-Object {
-        Set-Item -Path "Env:$($_.Key)" -Value $_.Value
-    }
-
-    [Environment]::GetEnvironmentVariables("User").GetEnumerator() | ForEach-Object {
-        Set-Item -Path "Env:$($_.Key)" -Value $_.Value
-    }
-
-    $env:Path = @(
-        [Environment]::GetEnvironmentVariable("Path", "Machine")
-        [Environment]::GetEnvironmentVariable("Path", "User")
-    ) -join ";"
-}
-
 # Install Chocolatey
-if (Test-Path "C:\ProgramData\chocolatey") {
-    Remove-Dir "C:\ProgramData\chocolatey" -Recurse -Force
-}
-
+Remove-Dir "C:\ProgramData\chocolatey"
 Set-ExecutionPolicy Bypass -Scope Process -Force
 [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072
 iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
-
 Refresh-Env
 
 # Install Just
