@@ -62,7 +62,7 @@ Choco-Uninstall just
 Choco-Uninstall git '/VERYSILENT /NORESTART'
 Choco-Uninstall nodejs
 Choco-Uninstall pnpm
-Choco-Uninstall rust
+Choco-Uninstall rustup.install
 Choco-Uninstall android-sdk
 Choco-Uninstall visualstudio2022buildtools
 
