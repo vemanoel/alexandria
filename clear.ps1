@@ -20,7 +20,6 @@ choco pin remove -n=visualstudio2022buildtools
 choco uninstall visualstudio2022buildtools --yes --remove-dependencies
 
 # Uninstall Chocolatey
-Remove-Item "C:\Program Files\Java" -Recurse -Force
 Remove-Item "C:\ProgramData\chocolatey" -Recurse -Force
 Remove-Item "C:\ProgramData\ChocolateyHttpCache" -Recurse -Force
 
@@ -32,5 +31,6 @@ Remove-Item "C:\ProgramData\ChocolateyHttpCache" -Recurse -Force
 )
 
 # Uninstall Android Studio
-Remove-Item C:\Android -Recurse -Force
+Remove-Item "C:\Program Files\Java" -Recurse -Force
+Remove-Item "C:\Android" -Recurse -Force
 Remove-Item "$env:USERPROFILE\.android" -Recurse -Force
