@@ -1,29 +1,5 @@
 $ErrorActionPreference = "Stop"
 
-function Choco-Uninstall {
-    param(
-        [Parameter(Mandatory)]
-        [string]$Package,
-
-        [string]$Params
-    )
-
-    choco pin remove -n="$Package"
-
-    $args = @(
-        "uninstall"
-        $Package
-        "--yes"
-        "--remove-dependencies"
-    )
-
-    if ($Params) {
-        $args += "--params=$Params"
-    }
-
-    choco @args
-}
-
 function Remove-Dir {
     param(
         [Parameter(Mandatory=$true)]
@@ -58,13 +34,13 @@ function Remove-PathEntry {
     )
 }
 
-Choco-Uninstall just
-Choco-Uninstall git '/VERYSILENT /NORESTART'
-Choco-Uninstall nodejs
-Choco-Uninstall pnpm
-Choco-Uninstall rustup
-Choco-Uninstall android-sdk
-Choco-Uninstall visualstudio2022buildtools
+choco uninstall just --yes --remove-dependencies
+choco uninstall git --yes --remove-dependencies --params="'/VERYSILENT /NORESTART'"
+choco uninstall nodejs --yes --remove-dependencies
+choco uninstall pnpm --yes --remove-dependencies
+choco uninstall rustup --yes --remove-dependencies
+choco uninstall android-sdk --yes --remove-dependencies
+choco uninstall visualstudio2022buildtools --yes --remove-dependencies
 
 Remove-Dir "C:\Android"
 Remove-Dir "$env:ProgramFiles\Java"
