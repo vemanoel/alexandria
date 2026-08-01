@@ -2,7 +2,7 @@ choco pin remove -n=just
 choco uninstall just --yes --remove-dependencies
 
 choco pin remove -n=git
-choco uninstall git --yes --remove-dependencies --remove-immersive
+choco uninstall git --yes --remove-dependencies --remove-immersive --params="'/VERYSILENT /NORESTART'"
 
 choco pin remove -n=nodejs
 choco uninstall nodejs --yes --remove-dependencies
