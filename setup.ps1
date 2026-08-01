@@ -1,3 +1,5 @@
+$ErrorActionPreference = "Stop"
+
 function Refresh-Env {
     [Environment]::GetEnvironmentVariables("Machine").GetEnumerator() | ForEach-Object {
         Set-Item -Path "Env:$($_.Key)" -Value $_.Value
@@ -12,8 +14,6 @@ function Refresh-Env {
         [Environment]::GetEnvironmentVariable("Path", "User")
     ) -join ";"
 }
-
-$ErrorActionPreference = "Stop"
 
 # Install Chocolatey
 [Environment]::SetEnvironmentVariable(
