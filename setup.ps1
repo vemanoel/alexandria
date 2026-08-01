@@ -48,7 +48,7 @@ choco pin add -n=rust
 # Install Android SDK Command-line Tool
 choco install android-sdk --yes --limit-output
 Refresh-Env
-sdkmanager "platform-tools" "platforms;android-36" "ndk;27.3.13750724" "build-tools;36.0.0"
+sdkmanager "platform-tools" "platforms;android-36" "ndk;27.3.13750724" "build-tools;36.0.0" "cmdline-tools;22.0"
 
 # Install Microsoft C++ Build Tools
 choco install visualstudio2022buildtools --package-parameters "--add Microsoft.VisualStudio.Workload.VCTools --includeRecommended --quiet --wait" --yes --limit-output
