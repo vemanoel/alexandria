@@ -1,13 +1,4 @@
-function Remove-Dir {
-    param(
-        [Parameter(Mandatory=$true)]
-        [string]$Path
-    )
-
-    if (Test-Path $Path) {
-        Remove-Item $Path -Recurse -Force
-    }
-}
+. "$PSScriptRoot\utils.ps1"
 
 choco pin remove -n=just
 choco uninstall just --yes --remove-dependencies --remove-immersive
