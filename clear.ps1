@@ -1,25 +1,25 @@
 . "$PSScriptRoot\utils.ps1"
 
 choco pin remove -n=just
-choco uninstall just --yes --remove-dependencies --remove-immersive
+choco uninstall just --yes --remove-dependencies
 
 choco pin remove -n=git
-choco uninstall git --yes --remove-dependencies --remove-immersive --params="'/VERYSILENT /NORESTART'"
+choco uninstall git --yes --remove-dependencies --params="'/VERYSILENT /NORESTART'"
 
 choco pin remove -n=nodejs
-choco uninstall nodejs --yes --remove-dependencies --remove-immersive
+choco uninstall nodejs --yes --remove-dependencies
 
 choco pin remove -n=pnpm
-choco uninstall pnpm --yes --remove-dependencies --remove-immersive
+choco uninstall pnpm --yes --remove-dependencies
 
 choco pin remove -n=rust
-choco uninstall rust --yes --remove-dependencies --remove-immersive
+choco uninstall rust --yes --remove-dependencies
 
 choco pin remove -n=android-sdk
-choco uninstall android-sdk --yes --remove-dependencies --remove-immersive
+choco uninstall android-sdk --yes --remove-dependencies
 
 choco pin remove -n=visualstudio2022buildtools
-choco uninstall visualstudio2022buildtools --yes --remove-dependencies --remove-immersive
+choco uninstall visualstudio2022buildtools --yes --remove-dependencies
 
 # Uninstall Chocolatey
 Remove-Dir "C:\ProgramData\chocolatey"
