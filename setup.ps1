@@ -16,7 +16,10 @@ function Refresh-Env {
 }
 
 # Install Chocolatey
-Remove-Item C:\ProgramData\chocolatey -Recurse -Force
+if (Test-Path "C:\ProgramData\chocolatey") {
+    Remove-Item "C:\ProgramData\chocolatey" -Recurse -Force
+}
+
 Set-ExecutionPolicy Bypass -Scope Process -Force
 [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072
 iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
