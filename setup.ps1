@@ -22,13 +22,13 @@ Set-ExecutionPolicy Bypass -Scope Process -Force
 iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
 Refresh-Env
 
-# Install Git
-choco install git --version=2.55.0 --yes
-choco pin add -n=git
-
 # Install Just
 choco install just --version=1.57.0 --yes
 choco pin add -n=just
+
+# Install Git
+choco install git --version=2.55.0 --yes
+choco pin add -n=git
 
 # Install Node
 choco install nodejs --version=26.0.0
