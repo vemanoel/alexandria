@@ -20,8 +20,9 @@ choco pin remove -n=visualstudio2022buildtools
 choco uninstall visualstudio2022buildtools --yes --remove-dependencies
 
 # Uninstall Chocolatey
-Remove-Item C:\ProgramData\chocolatey -Recurse -Force
-Remove-Item C:\ProgramData\ChocolateyHttpCache -Recurse -Force
+Remove-Item "C:\Program Files\Java" -Recurse -Force
+Remove-Item "C:\ProgramData\chocolatey" -Recurse -Force
+Remove-Item "C:\ProgramData\ChocolateyHttpCache" -Recurse -Force
 
 [Environment]::SetEnvironmentVariable(
     "Path",
