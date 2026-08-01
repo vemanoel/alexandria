@@ -1,5 +1,16 @@
 $ErrorActionPreference = "Stop"
 
+function Remove-Dir {
+    param(
+        [Parameter(Mandatory=$true)]
+        [string]$Path
+    )
+
+    if (Test-Path $Path) {
+        Remove-Item $Path -Recurse -Force
+    }
+}
+
 function Refresh-Env {
     [Environment]::GetEnvironmentVariables("Machine").GetEnumerator() | ForEach-Object {
         Set-Item -Path "Env:$($_.Key)" -Value $_.Value
@@ -16,25 +27,11 @@ function Refresh-Env {
 }
 
 # Install Chocolatey
-[Environment]::SetEnvironmentVariable(
-    "Path",
-    ([Environment]::GetEnvironmentVariable("Path", "Machine") -split ";" |
-    Where-Object { $_ -notlike "*chocolatey*" }) -join ";",
-    "Machine"
-)
-
-if (Test-Path "$env:ProgramData\chocolatey") {
-    Remove-Item "$env:ProgramData\chocolatey" -Recurse -Force
-}
-
-if (Test-Path "$env:ProgramData\ChocolateyHttpCache") {
-    Remove-Item "$env:ProgramData\ChocolateyHttpCache" -Recurse -Force
-}
-
+Remove-Dir "$env:ProgramData\chocolatey"
+Remove-Dir "$env:ProgramData\ChocolateyHttpCache"
 Set-ExecutionPolicy Bypass -Scope Process -Force
 [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072
 iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
-
 Refresh-Env
 
 # Install Just
