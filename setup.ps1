@@ -16,7 +16,21 @@ function Refresh-Env {
 $ErrorActionPreference = "Stop"
 
 # Install Chocolatey
-Remove-Dir "$env:ProgramData\ProgramData\chocolatey"
+[Environment]::SetEnvironmentVariable(
+    "Path",
+    ([Environment]::GetEnvironmentVariable("Path", "Machine") -split ";" |
+    Where-Object { $_ -notlike "*chocolatey*" }) -join ";",
+    "Machine"
+)
+
+if (Test-Path "$env:ProgramData\chocolatey") {
+    Remove-Item "$env:ProgramData\chocolatey" -Recurse -Force
+}
+
+if (Test-Path "$env:ProgramData\ChocolateyHttpCache") {
+    Remove-Item "$env:ProgramData\ChocolateyHttpCache" -Recurse -Force
+}
+
 Set-ExecutionPolicy Bypass -Scope Process -Force
 [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072
 iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
