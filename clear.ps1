@@ -1,16 +1,5 @@
 $ErrorActionPreference = "Stop"
 
-function Remove-Dir {
-    param(
-        [Parameter(Mandatory=$true)]
-        [string]$Path
-    )
-
-    if (Test-Path $Path) {
-        Remove-Item $Path -Recurse -Force
-    }
-}
-
 function Choco-Uninstall {
     param(
         [Parameter(Mandatory)]
@@ -35,6 +24,40 @@ function Choco-Uninstall {
     choco @args
 }
 
+function Remove-Dir {
+    param(
+        [Parameter(Mandatory=$true)]
+        [string]$Path
+    )
+
+    if (Test-Path $Path) {
+        Remove-Item $Path -Recurse -Force
+    }
+}
+
+function Remove-PathEntry {
+    param(
+        [Parameter(Mandatory)]
+        [string]$Pattern,
+
+        [ValidateSet("Machine", "User")]
+        [string]$Scope = "Machine"
+    )
+
+    $path = [Environment]::GetEnvironmentVariable("Path", $Scope)
+
+    $newPath = ($path -split ";" |
+        Where-Object {
+            $_ -and $_ -notlike "*$Pattern*"
+        }) -join ";"
+
+    [Environment]::SetEnvironmentVariable(
+        "Path",
+        $newPath,
+        $Scope
+    )
+}
+
 Choco-Uninstall just
 Choco-Uninstall git '/VERYSILENT /NORESTART'
 Choco-Uninstall nodejs
@@ -49,9 +72,4 @@ Remove-Dir "$env:USERPROFILE\.android"
 Remove-Dir "$env:ProgramData\chocolatey"
 Remove-Dir "$env:ProgramData\ChocolateyHttpCache"
 
-[Environment]::SetEnvironmentVariable(
-    "Path",
-    ([Environment]::GetEnvironmentVariable("Path", "Machine") -split ";" |
-    Where-Object { $_ -notlike "*chocolatey*" }) -join ";",
-    "Machine"
-)
+Remove-PathEntry "chocolatey"
