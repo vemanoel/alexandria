@@ -1,3 +1,5 @@
+$ErrorActionPreference = "Stop"
+
 function Remove-Dir {
     param(
         [Parameter(Mandatory=$true)]
@@ -9,28 +11,41 @@ function Remove-Dir {
     }
 }
 
-choco pin remove -n=just
-choco uninstall just --yes --remove-dependencies
+function Choco-Uninstall {
+    param(
+        [Parameter(Mandatory)]
+        [string]$Package,
 
-choco pin remove -n=git
-choco uninstall git --yes --remove-dependencies --params="'/VERYSILENT /NORESTART'"
+        [string]$Params
+    )
 
-choco pin remove -n=nodejs
-choco uninstall nodejs --yes --remove-dependencies
+    choco pin remove -n=$Package
 
-choco pin remove -n=pnpm
-choco uninstall pnpm --yes --remove-dependencies
+    $args = @(
+        "uninstall"
+        $Package
+        "--yes"
+        "--remove-dependencies"
+    )
 
-choco pin remove -n=rust
-choco uninstall rust --yes --remove-dependencies
+    if ($Params) {
+        $args += "--params=$Params"
+    }
 
-choco pin remove -n=android-sdk
-choco uninstall android-sdk --yes --remove-dependencies
+    choco @args
+}
 
-choco pin remove -n=visualstudio2022buildtools
-choco uninstall visualstudio2022buildtools --yes --remove-dependencies
+Choco-Uninstall just
+Choco-Uninstall git '/VERYSILENT /NORESTART'
+Choco-Uninstall nodejs
+Choco-Uninstall pnpm
+Choco-Uninstall  rust
+Choco-Uninstall android-sdk
+Choco-Uninstall visualstudio2022buildtools
 
-# Uninstall Chocolatey
+Remove-Dir "C:\Android"
+Remove-Dir "$env:ProgramFiles\Java"
+Remove-Dir "$env:USERPROFILE\.android"
 Remove-Dir "$env:ProgramData\chocolatey"
 Remove-Dir "$env:ProgramData\ChocolateyHttpCache"
 
@@ -40,8 +55,3 @@ Remove-Dir "$env:ProgramData\ChocolateyHttpCache"
     Where-Object { $_ -notlike "*chocolatey*" }) -join ";",
     "Machine"
 )
-
-# Uninstall Android Studio
-Remove-Dir "C:\Program Files\Java"
-Remove-Dir "C:\Android"
-Remove-Dir "$env:USERPROFILE\.android"
