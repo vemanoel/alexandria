@@ -11,13 +11,13 @@ function Remove-Dir {
     }
 }
 
-choco uninstall just --yes --remove-dependencies
-choco uninstall git --yes --remove-dependencies --params="'/VERYSILENT /NORESTART'"
-choco uninstall nodejs --yes --remove-dependencies
-choco uninstall pnpm --yes --remove-dependencies
-choco uninstall rustup --yes --remove-dependencies
-choco uninstall android-sdk --yes --remove-dependencies
-choco uninstall visualstudio2022buildtools --yes --remove-dependencies
+choco uninstall just --yes --remove-dependencies --failonstderr
+choco uninstall git --yes --remove-dependencies --failonstderr --params="'/VERYSILENT /NORESTART'"
+choco uninstall nodejs --yes --remove-dependencies --failonstderr
+choco uninstall pnpm --yes --remove-dependencies --failonstderr
+choco uninstall rustup --yes --remove-dependencies --failonstderr
+choco uninstall android-sdk --yes --remove-dependencies --failonstderr
+choco uninstall visualstudio2022buildtools --yes --remove-dependencies --failonstderr
 
 Remove-Dir "C:\Android"
 Remove-Dir "$env:TEMP\pnpm"
