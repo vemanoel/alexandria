@@ -35,27 +35,27 @@ iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocola
 Refresh-Env
 
 # Install Just
-choco install just --version=1.57.0 --yes --limit-output
+choco install just --version="1.57.0" --yes --limit-output
 choco pin add -n=just
 
 # Install Git
-choco install git --version=2.55.0 --yes --limit-output
+choco install git --version="2.55.0" --yes --limit-output
 choco pin add -n=git
 
 # Install Node
-choco install nodejs --version=24.18.1 --yes --limit-output
+choco install nodejs --version="24.18.1" --yes --limit-output
 choco pin add -n=nodejs
 
 # Install PNPM
-choco install pnpm --version=11.18.0 --yes --limit-output
+choco install pnpm --version="11.18.0" --yes --limit-output
 choco pin add -n=pnpm
 
 # Install Rust
-choco install rustup --version=1.97.0 --yes --limit-output
+choco install rustup --version="1.97.0" --yes --limit-output
 choco pin add -n=rust
      
 # Install Android SDK Command-line Tool
-choco install android-sdk --yes --limit-output
+choco install android-sdk --version="26.1.1" --yes --limit-output
 Refresh-Env
 sdkmanager "platform-tools" "platforms;android-36" "ndk;27.3.13750724" "build-tools;36.0.0" "cmdline-tools;22.0"
 
