@@ -31,17 +31,15 @@ scoop hold just
 scoop install git@2.55.0.3
 scoop hold git
 
-# Install Node
-scoop install nodejs@24.18.1
-scoop hold nodejs
+# Install Go
+scoop install go@1.26.5
+scoop hold go
 
-# Install PNPM
-scoop install pnpm@11.18.0
-scoop hold pnpm
-
-# Install Rust
-scoop install rustup@1.29.0
-scoop hold rustup
+# Install flutter
+scoop bucket add extras
+scoop update extras
+scoop install flutter@3.44.8
+scoop hold flutter
 
 # Install JDK
 scoop bucket add java
@@ -53,6 +51,7 @@ scoop hold temurin21-jdk
 scoop install android-clt@15859902
 scoop hold android-clt
 Refresh-Env
+"y`n" * 2 | sdkmanager --licenses
 
 # Install Android SDK components
 sdkmanager `
@@ -61,9 +60,3 @@ sdkmanager `
     "ndk;27.3.13750724" `
     "build-tools;36.0.0" `
     "cmdline-tools;22.0"
-
-# Install Microsoft C++ Build Tools
-winget install `
-    --id Microsoft.VisualStudio.2022.BuildTools `
-    --version 17.14.37 `
-    --override "--add Microsoft.VisualStudio.Workload.VCTools --includeRecommended --quiet --wait --norestart"
