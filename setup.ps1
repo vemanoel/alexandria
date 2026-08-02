@@ -23,13 +23,14 @@ Refresh-Env
 # Install 7zip
 scoop install 7zip
 
+# Install Git
+New-Item -ItemType Directory -Force "$env:USERPROFILE\scoop\buckets\scripts\git"
+scoop install git@2.55.0.1
+scoop hold git
+
 # Install Just
 scoop install just@1.57.0
 scoop hold just
-
-# Install Git
-scoop install git@2.55.0.3
-scoop hold git
 
 # Install Go
 scoop install go@1.26.5
@@ -50,12 +51,11 @@ scoop hold temurin21-jdk
 scoop install android-clt@15859902
 scoop hold android-clt
 Refresh-Env
-"y`n" * 2 | sdkmanager --licenses
 
 # Install Android SDK components
-sdkmanager `
+android sdk install `
     "platform-tools" `
     "platforms;android-36" `
-    "ndk;27.3.13750724" `
+    "ndk;28.2.13676358" `
     "build-tools;36.0.0" `
     "cmdline-tools;22.0"
