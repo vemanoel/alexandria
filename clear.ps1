@@ -11,14 +11,6 @@ function Remove-Dir {
     }
 }
 
-choco uninstall just --yes --remove-dependencies --failonstderr
-choco uninstall git --yes --remove-dependencies --failonstderr --params="'/VERYSILENT /NORESTART'"
-choco uninstall nodejs --yes --remove-dependencies --failonstderr
-choco uninstall pnpm --yes --remove-dependencies --failonstderr
-choco uninstall rust --yes --remove-dependencies --failonstderr
-choco uninstall android-sdk --yes --remove-dependencies --failonstderr
-choco uninstall visualstudio2022buildtools --yes --remove-dependencies --failonstderr
-
 Remove-Dir "C:\Android"
 Remove-Dir "$env:TEMP\pnpm"
 Remove-Dir "$env:TEMP\pnpm-cache"
@@ -34,9 +26,4 @@ Remove-Dir "$env:TEMP\chocolatey"
 Remove-Dir "$env:ProgramData\chocolatey"
 Remove-Dir "$env:ProgramData\ChocolateyHttpCache"
 
-[Environment]::SetEnvironmentVariable(
-    "Path",
-    ([Environment]::GetEnvironmentVariable("Path", "Machine") -split ";" |
-        Where-Object { $_ -and $_ -notlike "*chocolatey*" }) -join ";",
-    "Machine"
-)
+& "C:\Program Files (x86)\Microsoft Visual Studio\Installer\setup.exe" uninstall --installPath "C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools" --quiet --wait --norestart
