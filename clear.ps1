@@ -15,7 +15,7 @@ choco uninstall just --yes --remove-dependencies --failonstderr
 choco uninstall git --yes --remove-dependencies --failonstderr --params="'/VERYSILENT /NORESTART'"
 choco uninstall nodejs --yes --remove-dependencies --failonstderr
 choco uninstall pnpm --yes --remove-dependencies --failonstderr
-choco uninstall rustup --yes --remove-dependencies --failonstderr
+choco uninstall rust --yes --remove-dependencies --failonstderr
 choco uninstall android-sdk --yes --remove-dependencies --failonstderr
 choco uninstall visualstudio2022buildtools --yes --remove-dependencies --failonstderr
 
