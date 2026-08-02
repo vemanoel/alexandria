@@ -43,7 +43,6 @@ scoop hold flutter
 
 # Install JDK
 scoop bucket add java
-scoop update java
 scoop install temurin21-jdk@21.0.12-8.0
 scoop hold temurin21-jdk
 
