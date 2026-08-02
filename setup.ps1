@@ -43,7 +43,7 @@ choco install git --version=2.55.0 --yes --limit-output
 choco pin add -n=git
 
 # Install Node
-choco install nodejs --version=26.0.0 --yes --limit-output
+choco install nodejs --version=24.18.1 --yes --limit-output
 choco pin add -n=nodejs
 
 # Install PNPM
