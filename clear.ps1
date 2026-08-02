@@ -26,4 +26,4 @@ Remove-Dir "$env:TEMP\chocolatey"
 Remove-Dir "$env:ProgramData\chocolatey"
 Remove-Dir "$env:ProgramData\ChocolateyHttpCache"
 
-& "C:\Program Files (x86)\Microsoft Visual Studio\Installer\setup.exe" uninstall --installPath "C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools" --quiet --wait --norestart
+& "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\setup.exe" uninstall --installPath "${env:ProgramFiles(x86)}\Microsoft Visual Studio\2022\BuildTools" --norestart
