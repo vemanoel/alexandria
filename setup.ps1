@@ -66,5 +66,4 @@ sdkmanager `
 winget install `
     --id Microsoft.VisualStudio.2022.BuildTools `
     --version 17.14.37 `
-    --silent `
     --override "--add Microsoft.VisualStudio.Workload.VCTools --includeRecommended --quiet --wait"
