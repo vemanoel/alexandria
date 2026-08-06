@@ -1,7 +1,5 @@
 ## Prerequisites
 
-- mise@
-
 ### Linux (OpenSUSE Tumbleweed)
 
 ```bash
