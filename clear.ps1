@@ -1,29 +1,21 @@
 $ErrorActionPreference = "Stop"
 
-function Remove-Dir {
+function Remove-Path {
     param(
-        [Parameter(Mandatory=$true)]
+        [Parameter(Mandatory = $true)]
         [string]$Path
     )
 
-    if (Test-Path $Path) {
-        Remove-Item $Path -Recurse -Force
+    $item = Get-Item -LiteralPath $Path -ErrorAction SilentlyContinue
+
+    if ($null -eq $item) {
+        return
     }
+
+    if ($item.PSIsContainer) {
+        cmd /c "rd /s /q `"$Path`"" > $null 2>&1
+        return
+    }
+
+    cmd /c "del /f /q `"$Path`"" > $null 2>&1
 }
-
-Remove-Dir "C:\Android"
-Remove-Dir "$env:TEMP\pnpm"
-Remove-Dir "$env:TEMP\pnpm-cache"
-Remove-Dir "$env:TEMP\pnpm-state"
-Remove-Dir "$env:TEMP\.tauri"
-Remove-Dir "$env:ProgramFiles\Git"
-Remove-Dir "$env:ProgramFiles\nodejs"
-Remove-Dir "$env:ProgramFiles\Java"
-Remove-Dir "$env:USERPROFILE\.cargo"
-Remove-Dir "$env:USERPROFILE\.android"
-move-Dir "$env:USERPROFILE\.chocolatey"
-Remove-Dir "$env:TEMP\chocolatey"
-Remove-Dir "$env:ProgramData\chocolatey"
-Remove-Dir "$env:ProgramData\ChocolateyHttpCache"
-
-& "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\setup.exe" uninstall --installPath "${env:ProgramFiles(x86)}\Microsoft Visual Studio\2022\BuildTools" --norestart
